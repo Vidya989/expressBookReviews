@@ -49,10 +49,19 @@ public_users.get('/isbn/:isbn',function (req, res) {
   
 // Get book details based on author
 public_users.get('/author/:author',function (req, res) {
- //const author=req.params.author;
- //res.send('Hi')
- //let filtered_author= books.filter((book)=>book.author===author);
-//res.send(filtered_author)
+    const author = req.params.author;
+   // res.send(author)
+   //const books_array = []; 
+   for(let i in books) { 
+      if(books[i].author===author)
+      {
+        res.send(books[i]) 
+      }
+   }; 
+    //res.send(books_array)
+    //let filtered_books = booksarr.filter((book) => book.author === author);
+    //res.send(JSON.stringify(filtered_books,null,8));
+
   //return res.status(300).json({message: "Yet to be implemented"});
 });
 
