@@ -24,6 +24,7 @@ public_users.post("/register", (req,res) => {
     if(username && password){
         if (!doesExist(username)) { 
             users.push({"username":username,"password":password});
+           // res.send(users);
             return res.status(200).json({message: "User successfully registred. Now you can login"});
           } else {
             return res.status(404).json({message: "User already exists!"});    
@@ -57,7 +58,7 @@ public_users.get('/author/:author',function (req, res) {
       {
         res.send(books[i]) 
       }
-   }; 
+   }; return
     //res.send(books_array)
     //let filtered_books = booksarr.filter((book) => book.author === author);
     //res.send(JSON.stringify(filtered_books,null,8));
@@ -67,8 +68,16 @@ public_users.get('/author/:author',function (req, res) {
 
 // Get all books based on title
 public_users.get('/title/:title',function (req, res) {
-  //Write your code here
-  return res.status(300).json({message: "Yet to be implemented"});
+    const title = req.params.title;
+    for(let i in books) { 
+       if(books[i].title===title)
+       {
+         res.send(books[i]) 
+       }
+    }; 
+    return
+ 
+  //return res.status(300).json({message: "Yet to be implemented"});
 });
 
 //  Get book review
