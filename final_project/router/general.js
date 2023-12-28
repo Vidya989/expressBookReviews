@@ -38,46 +38,92 @@ public_users.post("/register", (req,res) => {
 
 // Get the book list available in the shop
 public_users.get('/',function (req, res) {
-  res.send(JSON.stringify(books,null,8));
+  //res.send(JSON.stringify(books,null,8));
+  let myPromise1 = new Promise((resolve,reject) => {
+    setTimeout(() => {
+      resolve(JSON.stringify(books,null,8))
+    },1000)})
+
+    myPromise1.then((successMessage) => {
+        res.send(successMessage)
+      })
 });
 
 // Get book details based on ISBN
 public_users.get('/isbn/:isbn',function (req, res) {
   const isbn=req.params.isbn;
-  res.send(books[isbn])
-  //return res.status(300).json({message: "Yet to be implemented"});
+  let myPromise2 = new Promise((resolve,reject) => {
+    setTimeout(() => {
+      resolve(books[isbn])
+    },1000)})
+
+    myPromise2.then((successMessage) => {
+        res.send(successMessage)
+      })
+  //res.send(books[isbn])
  });
   
 // Get book details based on author
 public_users.get('/author/:author',function (req, res) {
     const author = req.params.author;
-   // res.send(author)
-   //const books_array = []; 
-   for(let i in books) { 
+    let index=0;
+   /*for(let i in books) { 
       if(books[i].author===author)
       {
         res.send(books[i]) 
       }
-   }; return
-    //res.send(books_array)
-    //let filtered_books = booksarr.filter((book) => book.author === author);
-    //res.send(JSON.stringify(filtered_books,null,8));
+   }; return*/
+   let myPromise3 = new Promise((resolve,reject) => {
+    setTimeout(() => {
+        var word= [];
+        for(let i in books) { 
+            if(books[i].author===author)
+            {
+                word[index]=books[i];
+                index++;
+            }
+         };
+         resolve(word) 
+      //resolve(books[isbn])
+    },1000)})
 
-  //return res.status(300).json({message: "Yet to be implemented"});
+    myPromise3.then((successMessage) => {
+        res.send(successMessage)
+      })
+    
 });
 
 // Get all books based on title
 public_users.get('/title/:title',function (req, res) {
     const title = req.params.title;
-    for(let i in books) { 
+    let index=0;
+    /*for(let i in books) { 
        if(books[i].title===title)
        {
          res.send(books[i]) 
        }
     }; 
-    return
+    return*/
+
+    let myPromise4 = new Promise((resolve,reject) => {
+        setTimeout(() => {
+            var word= [];
+            for(let i in books) { 
+                if(books[i].title===title)
+                {
+                    word[index]=books[i];
+                    index++;
+                }
+             };
+             resolve(word) 
+          //resolve(books[isbn])
+        },1000)})
+    
+        myPromise4.then((successMessage) => {
+            res.send(successMessage)
+          })
  
-  //return res.status(300).json({message: "Yet to be implemented"});
+  
 });
 
 //  Get book review
@@ -91,7 +137,9 @@ public_users.get('/review/:isbn',function (req, res) {
   else{
       res.send("Book not found")
   }
-  //return res.status(300).json({message: "Yet to be implemented"});
+  
 });
 
 module.exports.general = public_users;
+
+
